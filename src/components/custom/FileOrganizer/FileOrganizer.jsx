@@ -5,7 +5,8 @@ import NodeID3 from 'node-id3';
 
 import utils from '../../../utils/utils';
 import Textbox from '../../common/Textbox/Textbox';
-import tagFields from './tagFields.json'
+import tagFields from './tagFields.json';
+import FileRename from '../FileRename/FileRename';
 import './FileOrganizer.css';
 
 function reducer(state, action) {
@@ -71,24 +72,27 @@ function FileOrganizer() {
 
   return (
     <div className="file-organizer">
-      <label htmlFor="path">Path</label>
-      <Textbox
-        id="path"
-        value={folderPath}
-        onChange={(event) =>
-          dispatch({ type: 'UPDATE_PATH', payload: event.target.value })
-        }
-      />
-      <button type="button" onClick={onArrangeClickHandler}>
-        Arrange
-      </button>
-      <select name="tag-fields" id="TagFields">
-        {tagFields.data.map((tagField) => (
-          <option key={tagField.valueField} value={tagField.valueField}>
-            {tagField.textField}
-          </option>
-        ))}
-      </select>
+      <div className="filearrange">
+        <label htmlFor="path">Path</label>
+        <Textbox
+          id="path"
+          value={folderPath}
+          onChange={(event) =>
+            dispatch({ type: 'UPDATE_PATH', payload: event.target.value })
+          }
+        />
+        <button type="button" onClick={onArrangeClickHandler}>
+          Arrange
+        </button>
+        <select name="tag-fields" id="TagFields">
+          {tagFields.data.map((tagField) => (
+            <option key={tagField.valueField} value={tagField.valueField}>
+              {tagField.textField}
+            </option>
+          ))}
+        </select>
+      </div>
+      <FileRename />
     </div>
   );
 }
